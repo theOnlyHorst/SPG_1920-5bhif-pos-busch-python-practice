@@ -119,10 +119,59 @@ while countW1<len(wire1):
     countW1+=1
 
 
-crossManhatten = []
+crossSteps = []
 for crossPt in cross:
-    crossManhatten.append(crossPt.manhattenDist(Point(0,0)))
-crossManhatten.sort()
+    currX = 0
+    currY = 0
+    stepCount = 0
+    for instruct in wirePath1:
+        direction = instruct[0]
+        diststr = instruct[1:]
+        dist = int(diststr)
+        distcount =0
+        cont = True
+        while distcount<dist and cont ==True:
+            if direction == "R":
+                currX+=1
+            elif direction == "L":
+                currX-=1
+            elif direction == "U":
+                currY+=1
+            elif direction == "D":
+                currY-=1
+            stepCount+=1
+            if crossPt.x == currX and crossPt.y == currY:
+                cont =False
+            distcount+=1
+        if cont == False:
+            break
+    currX = 0
+    currY = 0
+    for instruct in wirePath2:
+        direction = instruct[0]
+        diststr = instruct[1:]
+        dist = int(diststr)
+        distcount =0
+        cont = True
+        while distcount<dist and cont ==True:
+            if direction == "R":
+                currX+=1
+            elif direction == "L":
+                currX-=1
+            elif direction == "U":
+                currY+=1
+            elif direction == "D":
+                currY-=1
+            stepCount+=1
+            if crossPt.x == currX and crossPt.y == currY:
+                cont =False
+            distcount+=1
+        if cont == False:
+            break
+    crossSteps.append(stepCount)
 
-for manhattenDist in crossManhatten:
-    print(manhattenDist)
+
+crossSteps.sort()
+
+for steps in crossSteps:
+    print(steps)
